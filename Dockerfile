@@ -6,4 +6,5 @@ WORKDIR /src
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "/src/InfluxdbSpeedtest.py"]
+#CMD ["python", "/src/InfluxdbSpeedtest.py"]
+ENTRYPOINT ["/src/entrypoint.sh"]

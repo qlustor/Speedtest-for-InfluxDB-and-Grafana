@@ -1,8 +1,10 @@
 version: '2'
 services:
   speedtest:
-    image: atribe/Speedtest-for-InfluxDB-and-Grafana
+    image: atribe/speedtest-for-influxdb-and-grafana
     container_name: speedtest
     volumes:
       - ./config.ini:/src/config.ini
     restart: always
+    environment:
+      - INFLUXDB_HOST = 10.13.14.200
