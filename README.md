@@ -50,8 +50,8 @@ You will need the speedtest-cli library installed to use this - [Found Here](htt
 2. Make a directory to hold the config.ini file. Navigate to that directory and download the sample config.ini in this repo.
 ```bash
 mkdir speedtest
-curl -O https://raw.githubusercontent.com/barrycarey/Speedtest-for-InfluxDB-and-Grafana/blob/master/config.ini speedtest/config.ini
 cd speedtest
+curl -O https://raw.githubusercontent.com/barrycarey/Speedtest-for-InfluxDB-and-Grafana/master/config.ini
 ```
 
 3. Modify the config file with your influxdb settings.
