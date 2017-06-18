@@ -1,7 +1,7 @@
 FROM python:3.3-slim
 MAINTAINER Allan Tribe <atribe13@gmail.com>
 
-ADD . /src
+ADD . /src/
 WORKDIR /src
 
 RUN pip install -r requirements.txt
