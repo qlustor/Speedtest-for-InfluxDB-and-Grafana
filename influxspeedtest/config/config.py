@@ -5,7 +5,7 @@ class Settings():
     def __init__(self):
 
         self.influx_address = os.getenv('INFLUXDB_ADDRESS', 'localhost')
-        self.influx_port = int(os.getenv('INFLUXDB_PORT', 443))
+        self.influx_port = int(os.getenv('INFLUXDB_PORT', 8086))
         self.influx_database = os.getenv('INFLUXDB_DB', 'speedtests')
         self.influx_user = os.getenv('INFLUXDB_USER', 'admin')
         self.influx_password = os.getenv('INFLUXDB_PW', 'admin')
