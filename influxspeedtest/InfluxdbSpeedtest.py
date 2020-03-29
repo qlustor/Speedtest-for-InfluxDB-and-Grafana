@@ -168,11 +168,8 @@ class InfluxdbSpeedtest():
 
     def run(self):
 
-        while True:
-            if not config.servers:
-                self.run_speed_test()
-            else:
-                for server in config.servers:
-                    self.run_speed_test(server)
-            log.info('Waiting %s seconds until next test', config.delay)
-            time.sleep(config.delay)
+        if not config.servers:
+            self.run_speed_test()
+        else:
+            for server in config.servers:
+                self.run_speed_test(server)
