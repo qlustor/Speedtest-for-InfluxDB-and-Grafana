@@ -10,25 +10,25 @@ from influxspeedtest.common import log
 from influxspeedtest.config import config
 
 
-class InfluxdbSpeedtest():
+class InfluxdbSpeedtest:
 
     def __init__(self):
-
         self.influx_client = self._get_influx_connection()
         self.speedtest = None
         self.results = None
 
-    def _get_influx_connection(self):
+    @staticmethod
+    def _get_influx_connection():
         """
         Create an InfluxDB connection and test to make sure it works.
         We test with the get all users command.  If the address is bad it fails
         with a 404.  If the user doesn't have permission it fails with 401
-        :return:
+        :return: client
         """
 
         influx = InfluxDBClient(
-            config.influx_address,
-            config.influx_port,
+            host=config.influx_address,
+            port=config.influx_port,
             database=config.influx_database,
             ssl=config.influx_ssl,
             verify_ssl=config.influx_verify_ssl,
@@ -41,12 +41,12 @@ class InfluxdbSpeedtest():
             influx.get_list_users()  # TODO - Find better way to test connection and permissions
             log.debug('Successful connection to InfluxDb')
         except (ConnectTimeout, InfluxDBClientError, ConnectionError) as e:
-            if isinstance(e, ConnectTimeout):
-                log.critical('Unable to connect to InfluxDB at the provided address (%s)', config.influx_address)
+            if isinstance(e, (ConnectTimeout, ConnectionError)):
+                log.critical('Unable to connect to InfluxDB at the provided address (%s)', config.influx_address, exc_info=e)
             elif e.code == 401:
-                log.critical('Unable to connect to InfluxDB with provided credentials')
+                log.critical('Unable to connect to InfluxDB with provided credentials', exc_info=e)
             else:
-                log.critical('Failed to connect to InfluxDB for unknown reason')
+                log.critical('Failed to connect to InfluxDB for unknown reason', exc_info=e)
 
             sys.exit(1)
 
@@ -58,14 +58,15 @@ class InfluxdbSpeedtest():
         :param server: Int
         :return: None
         """
-        speedtest.build_user_agent()
-
-        log.debug('Setting up SpeedTest.net client')
 
         if server is None:
             server = []
         else:
-            server = server.split() # Single server to list
+            server = [server]
+
+        speedtest.build_user_agent()
+
+        log.debug('Setting up SpeedTest.net client')
 
         try:
             self.speedtest = speedtest.Speedtest()
@@ -97,7 +98,7 @@ class InfluxdbSpeedtest():
                     'download': result_dict['download'],
                     'upload': result_dict['upload'],
                     'ping': result_dict['server']['latency'],
-                    'server': result_dict['server']['id'],
+                    'server': int(result_dict['server']['id']),
                     'server_name': result_dict['server']['name']
                 },
                 'tags': {
@@ -142,8 +143,6 @@ class InfluxdbSpeedtest():
                  results['server']['latency']
                  )
 
-
-
     def write_influx_data(self, json_data):
         """
         Writes the provided JSON to the database
@@ -166,10 +165,19 @@ class InfluxdbSpeedtest():
 
         log.debug('Data written to InfluxDB')
 
-    def run(self):
-
+    def single_test(self):
         if not config.servers:
             self.run_speed_test()
         else:
             for server in config.servers:
                 self.run_speed_test(server)
+
+    def run(self):
+        if config.delay < 0:
+            self.single_test()
+        else:
+            while True:
+                self.single_test()
+                if config.delay > 0:
+                    log.info('Waiting %s seconds until next test', config.delay)
+                    time.sleep(config.delay)

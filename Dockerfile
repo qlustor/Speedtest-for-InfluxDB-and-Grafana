@@ -1,11 +1,10 @@
 FROM python:3.7.7-alpine3.11
-MAINTAINER Jon Baker <jonbaker85@gmail.com>
+MAINTAINER Adam Juraszek <juriad@gmail.com>
 
-VOLUME /src/
-COPY influxspeedtest.py requirements.txt /src/
-ADD influxspeedtest /src/influxspeedtest
 WORKDIR /src
-
+COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-CMD ["python", "-u", "/src/influxspeedtest.py"]
+COPY influxspeedtest/ ./influxspeedtest
+
+CMD ["python", "-m", "influxspeedtest"]

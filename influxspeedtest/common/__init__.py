@@ -1,1 +1,1 @@
-from .utils import log
+from influxspeedtest.common.utils import log
