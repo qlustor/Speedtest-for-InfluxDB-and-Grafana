@@ -12,6 +12,7 @@ It can run forever or as a single-shot (configure `DELAY`).
 - Used specific version of Alpine/Python build
 - Change how the program is started
 - Better cache use during docker build 
+- Add NAMESPACE for multiple docker instances polling into same InfluxDB
 
 ## Docker run
 
