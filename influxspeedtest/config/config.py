@@ -1,5 +1,5 @@
 import os
-
+import requests
 
 class Settings:
 
@@ -19,6 +19,9 @@ class Settings:
 
         # Logging
         self.logging_level = os.getenv('LOGGING', 'debug').upper()
+
+        # Public IP
+        self.public_ip = requests.get('http://checkip.amazonaws.com').text.strip()
 
         # Speedtest
         test_server = os.getenv('SERVER', None)
