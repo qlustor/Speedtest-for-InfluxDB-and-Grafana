@@ -16,14 +16,15 @@ It can run forever or as a single-shot (configure `DELAY`).
 ## Docker run
 
 ```bash
-docker pull juriad/speedtest
-docker run --name speedtest -e INFLUXDB_ADDRESS=influxdb -e DELAY=300 juriad/speedtest
+docker pull qlustor/speedflux
+docker run --name speedflux -e INFLUXDB_ADDRESS=influxdb -e DELAY=300 qlustor/speedflux
 ```
 
 ## Environment Variables
 
 |Key                     |Description                            | Default   |
 |:-----------------------|:--------------------------------------|:----------|
+|NAMESPACE               |Name Space for data ( multi-instance ) |           |
 |INFLUXDB_ADDRESS        |Host Address of InfluxDB               |localhost  |
 |INFLUXDB_PORT           |InfluxDB port to connect to            |8086       |
 |INFLUXDB_DB             |Database to write collected stats to   |speedtests |
