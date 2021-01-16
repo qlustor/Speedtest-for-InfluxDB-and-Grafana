@@ -95,15 +95,12 @@ class InfluxdbSpeedtest:
             {
                 'measurement': 'speed_test_results',
                 'fields': {
+                    'namespace': config.namespace,
+                    'ping': result_dict['server']['latency'],
                     'download': result_dict['download'],
                     'upload': result_dict['upload'],
-                    'ping': result_dict['server']['latency'],
                     'server': int(result_dict['server']['id']),
                     'server_name': result_dict['server']['name']
-                },
-                'tags': {
-                    'server': result_dict['server']['id'],
-                    'server_name': result_dict['server']['name'],
                     'server_country': result_dict['server']['country']
                 }
             }
