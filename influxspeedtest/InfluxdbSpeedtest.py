@@ -93,19 +93,19 @@ class InfluxdbSpeedtest:
 
         input_points = [
             {
-                'measurement': 'speed_test_results',
+                'measurement': 'test_results',
                 'fields': {
                     'namespace': config.namespace,
                     'public_ip': config.public_ip,
-                    'ping': result_dict['server']['latency'],
-                    'download': result_dict['download'],
-                    'upload': result_dict['upload'],
-                    'server': int(result_dict['server']['id']),
+                    'result_ping': result_dict['server']['latency'],
+                    'result_download': result_dict['download'],
+                    'result_upload': result_dict['upload'],
+                    'server_id': int(result_dict['server']['id']),
                     'server_name': result_dict['server']['name'],
                     'server_country': result_dict['server']['country'],
-                    'sponsor': result_dict['server']['sponsor'],
-                    'distance': result_dict['server']['d'],
-                    'url': result_dict['server']['url']
+                    'server_sponsor': result_dict['server']['sponsor'],
+                    'server_distance': result_dict['server']['d'],
+                    'server_url': result_dict['server']['url']
                 }
             }
         ]
