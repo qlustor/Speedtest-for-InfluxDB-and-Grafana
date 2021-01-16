@@ -100,7 +100,7 @@ class InfluxdbSpeedtest:
                     'download': result_dict['download'],
                     'upload': result_dict['upload'],
                     'server': int(result_dict['server']['id']),
-                    'server_name': result_dict['server']['name']
+                    'server_name': result_dict['server']['name'],
                     'server_country': result_dict['server']['country']
                 }
             }
