@@ -13,6 +13,7 @@ It can run forever or as a single-shot (configure `DELAY`).
 - Change how the program is started
 - Better cache use during docker build 
 - Add NAMESPACE for multiple docker instances polling into same InfluxDB
+- Add more detail to results ( Test Server Distance, Sponsor, URL, Clients Public IP )
 
 ## Docker run
 
