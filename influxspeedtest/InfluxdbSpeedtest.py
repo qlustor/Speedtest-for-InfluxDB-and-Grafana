@@ -101,7 +101,10 @@ class InfluxdbSpeedtest:
                     'upload': result_dict['upload'],
                     'server': int(result_dict['server']['id']),
                     'server_name': result_dict['server']['name'],
-                    'server_country': result_dict['server']['country']
+                    'server_country': result_dict['server']['country'],
+                    'sponsor': result_dict['server']['sponsor'],
+                    'distance': result_dict['server']['d'],
+                    'url': result_dict['server']['url']
                 }
             }
         ]
