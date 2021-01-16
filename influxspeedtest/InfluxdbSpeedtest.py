@@ -96,6 +96,7 @@ class InfluxdbSpeedtest:
                 'measurement': 'speed_test_results',
                 'fields': {
                     'namespace': config.namespace,
+                    'public_ip': config.public_ip,
                     'ping': result_dict['server']['latency'],
                     'download': result_dict['download'],
                     'upload': result_dict['upload'],
