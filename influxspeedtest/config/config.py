@@ -5,6 +5,9 @@ class Settings:
 
     def __init__(self):
 
+        # Namespace
+        self.namespace = os.getenv('NAMESPACE', '')
+        
         # Influx connection
         self.influx_address = os.getenv('INFLUXDB_ADDRESS', 'localhost')
         self.influx_port = int(os.getenv('INFLUXDB_PORT', 8086))
